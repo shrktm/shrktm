@@ -1,0 +1,1028 @@
+/* Import Montserrat font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --color-background: #0a0a0a;
+    --color-surface: #181818;
+    --color-text: #ffffff;
+    --color-primary: #ffc107;
+    --color-income: #4caf50;
+    --color-expense: #f44336;
+    --color-input-bg: #252525;
+    --color-input-border: #444;
+    --border-radius: 8px;
+    --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    --transition-speed: 0.3s;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    width: 100%;
+}
+
+/* Animazioni */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Schermata di benvenuto */
+.welcome-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--color-surface);
+    padding: 50px 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.welcome-container h1 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Rimuovo l'animazione fissa e aggiungo l'effetto di illuminazione al passaggio */
+.welcome-container h1,
+.container h1 {
+    transition: all 0.5s ease;
+}
+
+.welcome-container h1:hover,
+.container h1:hover {
+    animation: titleGlow 1.5s infinite;
+}
+
+/* Effetto illuminazione per il titolo */
+@keyframes titleGlow {
+    0% { text-shadow: 0 0 5px var(--color-primary), 0 0 10px var(--color-primary); }
+    50% { text-shadow: 0 0 20px var(--color-primary), 0 0 30px var(--color-primary); color: #fff; }
+    100% { text-shadow: 0 0 5px var(--color-primary), 0 0 10px var(--color-primary); }
+}
+
+.enter-btn {
+    max-width: 250px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    padding: 16px 30px;
+    animation: slideUp 0.5s ease-out 0.3s both;
+}
+
+/* Container principale */
+.container {
+    width: 100%;
+    max-width: 800px; /* Aumentato per un layout più ampio */
+    margin: 0 auto;
+    background-color: var(--color-surface);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: all var(--transition-speed) ease;
+    animation: fadeIn 0.5s ease-out;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    font-weight: 600;
+    animation: slideUp 0.5s ease-out;
+}
+
+h2, h3 {
+    margin: 10px 0;
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+/* Stile per il bilancio attuale (ispirato alle UI delle carte di credito) */
+.balance-container {
+    background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-speed) ease;
+    animation: slideUp 0.5s ease-out;
+}
+
+.balance-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.1) 0%, transparent 70%);
+    opacity: 0.5;
+    z-index: 0;
+}
+
+.balance-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.balance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+#set-initial-balance {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #e0a800 100%);
+    color: #000;
+    border: none;
+    padding: 10px 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+#set-initial-balance:hover {
+    background: linear-gradient(135deg, #e0a800 0%, var(--color-primary) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+#set-initial-balance:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+#set-initial-balance:hover:before {
+    left: 100%;
+}
+
+.balance {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--color-text);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 15px 0;
+    position: relative;
+    z-index: 1;
+    transition: all var(--transition-speed) ease;
+}
+
+/* Pulsante per visualizzare i grafici */
+.view-charts-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary);
+    color: #000;
+    border: none;
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+    width: 100%;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.view-charts-btn:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.view-charts-btn svg {
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+}
+
+/* Sezione grafici separata */
+.charts-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a0a 0%, #121212 100%);
+    z-index: 1000;
+    padding: 30px;
+    overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.charts-section.active {
+    transform: translateY(0);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.charts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.charts-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+    opacity: 0.6;
+}
+
+.charts-header h2 {
+    color: var(--color-primary);
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.charts-description {
+    margin-bottom: 20px;
+    color: #aaa;
+    font-size: 16px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out 0.2s both;
+}
+
+.charts-footer {
+    margin-top: 30px;
+    color: #777;
+    font-size: 14px;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-input-border);
+    animation: fadeIn 0.5s ease-out 0.3s both;
+}
+
+.close-charts-btn {
+    background: linear-gradient(135deg, var(--color-expense) 0%, #d32f2f 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all var(--transition-speed) ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.close-charts-btn::before {
+    content: '×';
+    font-size: 24px;
+    line-height: 1;
+}
+
+.close-charts-btn:hover {
+    background: linear-gradient(135deg, #d32f2f 0%, var(--color-expense) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.chart-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 100%;
+    margin: 30px 0;
+    animation: slideUp 0.5s ease-out;
+}
+
+.chart-item {
+    flex: 1 1 calc(50% - 15px);
+    min-width: 300px;
+    height: 350px;
+    background: linear-gradient(135deg, #1e1e1e 0%, #252525 100%);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--color-input-border);
+    transition: all var(--transition-speed) ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), transparent);
+}
+
+.chart-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.chart-item h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--color-primary);
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-input-border);
+}
+
+/* Entrate e spese */
+.income-expense-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    background-color: var(--color-surface);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-input-border);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.5s ease-out 0.1s both;
+}
+
+.income, .expense {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-speed) ease;
+}
+
+.income:hover, .expense:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.income h3 {
+    color: var(--color-income);
+}
+
+.expense h3 {
+    color: var(--color-expense);
+}
+
+#income-total {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--color-income);
+    margin-top: 5px;
+}
+
+#expense-total {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--color-expense);
+    margin-top: 5px;
+}
+
+/* Form di transazione */
+.form-control {
+    margin: 15px 0;
+    animation: slideUp 0.5s ease-out;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    background-color: var(--color-input-bg);
+    color: var(--color-text);
+    transition: all var(--transition-speed) ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+    transform: translateY(-2px);
+}
+
+.amount-controls {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.quick-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.increment-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.amount-btn {
+    background-color: #000;
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--border-radius);
+    padding: 12px 0;
+    flex: 1;
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
+    transition: all var(--transition-speed) ease;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.amount-btn:hover {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #e0a800 100%);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.amount-btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.amount-btn:hover:before {
+    left: 100%;
+}
+
+.btn {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #e0a800 100%);
+    color: #000;
+    border: none;
+    padding: 10px 16px;
+    width: 100%;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: all var(--transition-speed) ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #e0a800 0%, var(--color-primary) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn:hover:before {
+    left: 100%;
+}
+
+/* Lista transazioni */
+.list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.list li {
+    background-color: var(--color-surface);
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: var(--border-radius);
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 5px solid #555;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-speed) ease;
+    animation: slideUp 0.5s ease-out;
+}
+
+.list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.list li.income {
+    border-left: 5px solid var(--color-income);
+}
+
+.list li.expense {
+    border-left: 5px solid var(--color-expense);
+}
+
+.transaction-details {
+    flex: 1;
+}
+
+.transaction-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.transaction-description {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.transaction-recurring {
+    font-size: 12px;
+    color: var(--color-primary);
+    margin-top: 5px;
+    font-weight: 600;
+    display: inline-block;
+    padding: 3px 8px;
+    background-color: rgba(255, 193, 7, 0.15);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.transaction-amount {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.income .transaction-amount {
+    color: var(--color-income);
+    font-weight: 600;
+}
+
+.expense .transaction-amount {
+    color: var(--color-expense);
+    font-weight: 600;
+}
+
+.delete-btn {
+    background-color: var(--color-expense);
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all var(--transition-speed) ease;
+    font-weight: bold;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hidden {
+    display: none;
+}
+
+#recurring-options {
+    margin-top: 10px;
+    padding: 12px;
+    background-color: var(--color-input-bg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-input-border);
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Stile per la barra di ricerca con SVG integrato */
+.search-container {
+    display: flex;
+    margin: 15px 0 25px;
+    position: relative;
+    animation: slideUp 0.5s ease-out;
+}
+
+#search-input {
+    flex: 1;
+    padding: 12px 15px 12px 40px; /* Spazio per l'icona */
+    border-radius: var(--border-radius);
+    background-color: var(--color-input-bg);
+    border: 1px solid var(--color-input-border);
+    color: var(--color-text);
+    font-size: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24' fill='%23ffc107'%3E%3Cpath d='M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 20px;
+    transition: all var(--transition-speed) ease;
+}
+
+#search-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Rimuoviamo il pulsante di ricerca poiché ora l'icona è integrata nell'input */
+#search-btn {
+    display: none;
+}
+
+/* Stile per i selettori a tendina */
+#transaction-category,
+#transaction-type,
+#recurring-frequency {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000' stroke='%23ffc107' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 30px;
+    border: 1px solid var(--color-input-border);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-speed) ease;
+}
+
+optgroup {
+    font-weight: 600;
+    color: var(--color-text);
+    background-color: var(--color-input-bg);
+}
+
+.income-categories {
+    color: var(--color-income);
+}
+
+.expense-categories {
+    color: var(--color-expense);
+}
+
+option {
+    padding: 8px;
+    background-color: var(--color-input-bg);
+    color: var(--color-text);
+}
+
+/* Stile moderno per il selettore di transazione periodica */
+.form-control.recurring-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-direction: column;
+    margin: 15px 0;
+}
+
+.form-control.recurring-control label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    background-color: #000;
+    color: white;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--color-input-border);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+input[type="checkbox"]#recurring {
+    appearance: none;
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+input[type="checkbox"]#recurring:checked + label {
+    background-color: var(--color-primary);
+    color: #000;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    border-color: var(--color-primary);
+}
+
+input[type="checkbox"]#recurring + label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+    z-index: 1;
+}
+
+input[type="checkbox"]#recurring + label::after {
+    content: '✓';
+    position: absolute;
+    right: 15px;
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease;
+    font-weight: bold;
+}
+
+input[type="checkbox"]#recurring:checked + label::after {
+    opacity: 1;
+}
+
+input[type="checkbox"]#recurring:checked + label::before {
+    left: 100%;
+}
+
+/* Stile per il pulsante Aggiungi Transazione */
+#add-transaction-btn {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #e0a800 100%);
+    color: #000;
+    border: none;
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+#add-transaction-btn:hover {
+    background: linear-gradient(135deg, #e0a800 0%, var(--color-primary) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+#add-transaction-btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+#add-transaction-btn:hover:before {
+    left: 100%;
+}
+
+/* Stile per altri checkbox */
+input[type="checkbox"]:not(#recurring) {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-input-border);
+    border-radius: 4px;
+    background-color: var(--color-input-bg);
+    vertical-align: middle;
+    margin-right: 8px;
+    position: relative;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+input[type="checkbox"]:not(#recurring):checked {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+input[type="checkbox"]:not(#recurring):checked::after {
+    content: '✓';
+    position: absolute;
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Stili per l'intestazione aggiungi transazione */
+.add-transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    animation: slideUp 0.5s ease-out;
+}
+
+.btn-toggle {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #e0a800 100%);
+    color: #000;
+    border: none;
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-toggle:hover {
+    background: linear-gradient(135deg, #e0a800 0%, var(--color-primary) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-toggle:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn-toggle:hover:before {
+    left: 100%;
+}
+
+/* Media queries per responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        max-width: 100%;
+    }
+    
+    .balance {
+        font-size: 30px;
+    }
+    
+    .income-expense-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .income, .expense {
+        width: 100%;
+    }
+    
+    .amount-controls {
+        flex-direction: column;
+    }
+    
+    .quick-buttons, .increment-buttons {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+    
+    .balance {
+        font-size: 24px;
+    }
+    
+    .balance-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .add-transaction-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .btn-toggle {
+        width: 100%;
+    }
+    
+    .view-charts-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

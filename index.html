@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHARKS Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="modal.css">
+</head>
+<body>
+    <div id="welcome-screen" class="welcome-container">
+        <h1>SHARKS TRACKER</h1>
+        <button id="enter-app" class="btn enter-btn">Entra nel Tracker</button>
+    </div>
+    
+    <div id="app-container" class="container hidden">
+        <h1>SHARKS TRACKER</h1>
+        
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Cerca transazione...">
+            <button id="search-btn">
+                <img src="search-icon.svg" alt="Cerca" class="search-icon">
+            </button>
+        </div>
+        
+        <div class="balance-container">
+            <div class="balance-header">
+                <h2>Bilancio Attuale</h2>
+                <button id="set-initial-balance">Imposta Bilancio Iniziale</button>
+            </div>
+            <div class="balance" id="balance">€0.00</div>
+            <button id="view-charts-btn" class="view-charts-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#000000">
+                    <path d="M120-120v-500h160v500H120Zm280 0v-700h160v700H400Zm280 0v-300h160v300H680Z"/>
+                </svg>
+                Visualizza Grafici
+            </button>
+        </div>
+        
+        <div id="charts-section" class="charts-section hidden">
+            <div class="charts-header">
+                <h2>Grafici e Statistiche</h2>
+                <button id="close-charts-btn" class="close-charts-btn">Chiudi</button>
+            </div>
+            <div class="charts-description">
+                <p>Visualizza l'andamento delle tue finanze con grafici dettagliati</p>
+            </div>
+            <div id="balance-chart" class="chart-container">
+                <!-- I grafici verranno inseriti qui dinamicamente -->
+            </div>
+            <div class="charts-footer">
+                <p>I dati sono aggiornati in tempo reale in base alle tue transazioni</p>
+            </div>
+        </div>
+
+        <div class="income-expense-container">
+            <div class="income">
+                <h3>Entrate</h3>
+                <p id="income-total">€0.00</p>
+            </div>
+            <div class="expense">
+                <h3>Spese</h3>
+                <p id="expense-total">€0.00</p>
+            </div>
+        </div>
+
+        <div class="add-transaction-header">
+            <h3>Transazioni</h3>
+            <button id="toggle-form" class="btn-toggle">Aggiungi Transazione</button>
+        </div>
+        <form id="transaction-form" class="hidden">
+            <div class="form-control">
+                <label for="title">Titolo</label>
+                <input type="text" id="title" placeholder="Inserisci titolo..." required>
+            </div>
+            <div class="form-control">
+                <label for="description">Descrizione</label>
+                <input type="text" id="description" placeholder="Inserisci descrizione...">
+            </div>
+            <div class="form-control">
+                <label for="amount">Importo (€)</label>
+                <input type="number" id="amount" placeholder="0" step="0.01" required>
+                <div class="amount-controls">
+                    <div class="quick-buttons">
+                        <button type="button" class="amount-btn" data-value="-10">-10</button>
+                        <button type="button" class="amount-btn" data-value="-5">-5</button>
+                        <button type="button" class="amount-btn" data-value="+5">+5</button>
+                        <button type="button" class="amount-btn" data-value="+10">+10</button>
+                    </div>
+                    <div class="increment-buttons">
+                        <button type="button" class="amount-btn" data-value="-1">-</button>
+                        <button type="button" class="amount-btn" data-value="+1">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-control">
+                <label for="transaction-type">Tipo di Transazione</label>
+                <select id="transaction-type" required>
+                    <option value="income">Entrata</option>
+                    <option value="expense">Spesa</option>
+                </select>
+            </div>
+            <div class="form-control">
+                <label for="transaction-category">Categoria</label>
+                <select id="transaction-category">
+                    <option value="">Seleziona categoria...</option>
+                    <!-- Categorie per entrate -->
+                    <optgroup label="Entrate" class="income-categories">
+                        <option value="salary">Stipendio</option>
+                        <option value="bonus">Bonus</option>
+                        <option value="gift">Regalo</option>
+                        <option value="investment">Investimento</option>
+                        <option value="other-income">Altro</option>
+                    </optgroup>
+                    <!-- Categorie per spese -->
+                    <optgroup label="Spese" class="expense-categories">
+                        <option value="food">Alimentari</option>
+                        <option value="transport">Trasporti</option>
+                        <option value="utilities">Bollette</option>
+                        <option value="entertainment">Intrattenimento</option>
+                        <option value="health">Salute</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="other-expense">Altro</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="form-control recurring-control">
+                <input type="checkbox" id="recurring">
+                <label for="recurring">TRANSAZIONE PERIODICA</label>
+                <div id="recurring-options" class="hidden">
+                    <select id="recurring-frequency">
+                        <option value="daily">Giornaliera</option>
+                        <option value="weekly">Settimanale</option>
+                        <option value="monthly">Mensile</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn" id="add-transaction-btn">Aggiungi Transazione</button>
+        </form>
+
+        <h3>Cronologia Transazioni</h3>
+        <ul id="transaction-list" class="list">
+            <!-- Le transazioni verranno aggiunte qui dinamicamente -->
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
